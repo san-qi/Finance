@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">记</string>
+    <string name="see_all">查看全部</string>
+    <string name="income">收入</string>
+    <string name="bill">支出</string>
+    <string name="incomeScreenCircleLabel">总收入</string>
+    <string name="billScreenCircleLabel">总支出</string>
+    <string name="confirm">确认</string>
+    <string name="edit">新建</string>
+    <string name="account">我的账户</string>
+</resources>
