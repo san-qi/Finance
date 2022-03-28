@@ -25,6 +25,8 @@
         <entry key="app/src/main/res/drawable/baseline_currency_yen_24.xml" value="0.181" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.181" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.232" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/launcher.xml" value="0.232" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/launcher_round.xml" value="0.232" />
       </map>
     </option>
   </component>

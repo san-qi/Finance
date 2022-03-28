@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">记</string>
+    <string name="app_name">日记</string>
     <string name="see_all">查看全部</string>
     <string name="income">收入</string>
     <string name="bill">支出</string>
