@@ -9,21 +9,26 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.NavigateNext
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import top.sanqii.finance.InnerScreen
 import top.sanqii.finance.dataStore
+import top.sanqii.finance.database
 import top.sanqii.finance.utils.DataStoreUtil
 
 private val DEFAULT_PADDING = 12.dp
 
 @Composable
 fun UserCenterBody(navController: NavController) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     Column(
         Modifier
             .padding(16.dp)
@@ -39,6 +44,23 @@ fun UserCenterBody(navController: NavController) {
             "注册" to { navController.navigate(InnerScreen.Register.name) },
             "登录" to { navController.navigate(InnerScreen.Login.name) },
             "修改密码" to { navController.navigate(InnerScreen.ChangePassword.name) },
+            "退出登录" to {
+                scope.launch(Dispatchers.IO) {
+                    DataStoreUtil.put(context.dataStore, "id", "")
+                    DataStoreUtil.put(context.dataStore, "isLogin", false)
+                    val recordDao = context.database.getRecordDao()
+                    val records = recordDao.queryAllRecords().first()
+                    withContext(Dispatchers.IO) {
+                        recordDao.deleteRecords(*records.toTypedArray())
+                    }
+                    DataStoreUtil.put(context.dataStore, "deleteList", "")
+                    DataStoreUtil.put(context.dataStore, "lastRid", 0L)
+                    withContext(Dispatchers.Main) {
+                        navController.popBackStack()
+                    }
+                }
+                Unit
+            }
         )
 
         if (isLogin) {
@@ -46,7 +68,7 @@ fun UserCenterBody(navController: NavController) {
                 UserCenterItem(it)
             }
         } else {
-            items.minus("修改密码").forEach {
+            items.minus(listOf("修改密码", "退出登录")).forEach {
                 UserCenterItem(it)
             }
         }
