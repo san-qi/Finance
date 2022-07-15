@@ -60,6 +60,9 @@
   - ApiService.kt: retrofit2 工具类
   - DataStoreUtil.kt: dataStore 工具类
 
+## 实际展示
+![gif](https://github.com/san-qi/Finance_client/blob/master/show.gif?raw=true)
+
 ## 灵感来源
 
 该项目最初版本完善于[Rally](https://material.io/design/material-studies/rally.html),其中记录条目类型来源于一款APP--随手记,余下部分均由个人独立完成
